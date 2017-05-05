@@ -10,6 +10,7 @@ using BSE_Pro4.Models;
 
 namespace BSE_Pro4.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminProductsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
