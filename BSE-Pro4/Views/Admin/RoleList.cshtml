@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Role list";
+}
+
+<h2>RoleList</h2>
+
+@Html.ActionLink("Create new role", "RoleCreate") | @Html.ActionLink("Manage users role", "ManageUserRoles")
+<hr />
+<div>
+    @foreach (var role in Model)
+    {
+        <p>
+            <strong>@role.Name</strong> >> 
+            <span onclick="return confirm('Are you sure?')"><a href="/Admin/RoleDelete?RoleName=@role.Name" class="delLink" style="color:red;">Delete</a></span>
+        </p>
+    }
+</div>
