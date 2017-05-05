@@ -54,6 +54,12 @@ namespace BSE_Pro4.Controllers
         {
             return View();
         }
+        public ActionResult AddExampleData()
+        {
+            BSE_Pro4.Models.Database adb = new BSE_Pro4.Models.Database();
+            adb.LoadExample();
+            return RedirectToAction("Index");
+        }
         public ActionResult UsersList()
         {
             return View(_db.Users.ToList());
