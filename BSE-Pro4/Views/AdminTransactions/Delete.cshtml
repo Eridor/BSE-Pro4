@@ -1,0 +1,64 @@
+﻿@model BSE_Pro4.Models.Transaction
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Transaction</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionStatus.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransactionStatus.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserInvoice.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserInvoice.UserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserShipment.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserShipment.UserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalCost)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
