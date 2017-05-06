@@ -206,10 +206,16 @@
     <Compile Include="Controllers\AdminTransactionsController.cs" />
     <Compile Include="Controllers\AdminTransactionStatusController.cs" />
     <Compile Include="Controllers\AdminUserShipmentsController.cs" />
+    <Compile Include="Controllers\ApplicationUsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UserProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705061158222_aspnet-BSE-Pro4-20170505035649.mdf.cs" />
+    <Compile Include="Migrations\201705061158222_aspnet-BSE-Pro4-20170505035649.mdf.Designer.cs">
+      <DependentUpon>201705061158222_aspnet-BSE-Pro4-20170505035649.mdf.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -330,6 +336,9 @@
     <Content Include="Views\Admin\UserDelete.cshtml" />
     <Content Include="Views\Admin\UserEdit.cshtml" />
     <Content Include="Views\Admin\UsersList.cshtml" />
+    <Content Include="Views\ApplicationUsers\Index.cshtml" />
+    <Content Include="Views\UserProducts\Edit.cshtml" />
+    <Content Include="Views\UserProducts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -341,6 +350,11 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201705061158222_aspnet-BSE-Pro4-20170505035649.mdf.resx">
+      <DependentUpon>201705061158222_aspnet-BSE-Pro4-20170505035649.mdf.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
