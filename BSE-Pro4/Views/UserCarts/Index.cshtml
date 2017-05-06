@@ -1,0 +1,36 @@
+﻿@model IEnumerable<BSE_Pro4.Models.Cart>
+
+@{
+    ViewBag.Title = "Koszyk";
+} 
+
+<h2>Zawartość koszyka</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Nazwa produktu
+        </th> 
+        <th>
+            Ilość
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductItem.Name)
+            </td>       
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td> 
+                @Html.ActionLink("Usuń z koszyka", "Delete", new { id = item.CartId })
+            </td>
+        </tr>
+    }
+
+</table>

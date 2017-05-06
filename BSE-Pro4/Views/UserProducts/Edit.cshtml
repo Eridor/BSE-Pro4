@@ -1,16 +1,19 @@
 ﻿@model BSE_Pro4.Models.Product
 
 @{ 
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Informacje o produkcie";
     Func<double, double, double> Sum = (a, b) => a + b;
     Func<double, double, double> CenaNetto = (a, b) => a * b;
     Func<double, double, double, double> CenaBrutto = (a, b, vat) => a * b * (1 + vat);
     Func<double, double, double> CenaZRabatem = (a, rabat) => a * (1 - rabat);
 }
- 
-<h2>Index</h2>
 
-<h2>Edit</h2>
+<div>
+    @Html.ActionLink("Powrót do listy", "Index")
+</div>
+ 
+<h2>Informacje o produkcie</h2>
+
 
 
 @using (Html.BeginForm())
@@ -18,7 +21,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Product</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ProductId)
@@ -124,7 +126,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Powrót do listy", "Index")
 </div>
 
 @section Scripts {

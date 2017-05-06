@@ -209,6 +209,7 @@
     <Compile Include="Controllers\ApplicationUsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UserCartsController.cs" />
     <Compile Include="Controllers\UserProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -339,6 +340,11 @@
     <Content Include="Views\ApplicationUsers\Index.cshtml" />
     <Content Include="Views\UserProducts\Edit.cshtml" />
     <Content Include="Views\UserProducts\Index.cshtml" />
+    <Content Include="Views\UserCarts\Create.cshtml" />
+    <Content Include="Views\UserCarts\Delete.cshtml" />
+    <Content Include="Views\UserCarts\Details.cshtml" />
+    <Content Include="Views\UserCarts\Edit.cshtml" />
+    <Content Include="Views\UserCarts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

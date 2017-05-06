@@ -1,14 +1,14 @@
 ﻿
 @{
-    ViewBag.Title = "ManageUserRoles";
+    ViewBag.Title = "Zarządzanie uprawnieniami";
 }
 
-<h2>ManageUserRoles</h2>
+<h2>Zarządzanie uprawnieniami</h2>
 
-@Html.ActionLink("Create new role", "Create") | @Html.ActionLink("Manage users role", "ManageUserRoles")
+@Html.ActionLink("Stwórz nowe uprawnienie", "RoleCreate") | @Html.ActionLink("Zmień uprawnienia", "ManageUserRoles")
 <hr />
 
-<h2>Role Add to User</h2>
+<h2>Nadaj uprawnienia użytkownikowi</h2>
 
 @using (Html.BeginForm("RoleAddToUser", "Admin"))
 {
@@ -16,12 +16,12 @@
     @Html.ValidationSummary(true)
 
     <p>
-        Username : @Html.TextBox("UserName")
-        Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
+         Nazwa użytkownika : @Html.TextBox("UserName")
+        Uprawnienie: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
 
     </p>
 
-    <input type="submit" value="Save" />
+    <input type="submit" value="Zapisz" />
 }
 <hr />
 <h3>Get Roles for a User</h3>
@@ -29,7 +29,7 @@
 {
     @Html.AntiForgeryToken()
     <p>
-        Username : @Html.TextBox("UserName")
+         Nazwa użytkownika : @Html.TextBox("UserName")
         <input type="submit" value="Get Roles for this User" />
     </p>
 }
@@ -37,7 +37,7 @@
 @if (ViewBag.RolesForThisUser != null)
 {
     <div style="background-color:yellow;">
-        <h3>Roles for this user </h3>
+        <h3>Uprawnienia dla użytkownika </h3>
         <ol>
             @foreach (string s in ViewBag.RolesForThisUser)
             {
@@ -48,7 +48,7 @@
 }
 
 <hr />
-<h3>Delete A User from a Role</h3>
+<h3>Odbierz użytkownikowi uprawnienia</h3>
 
 @using (Html.BeginForm("DeleteRoleForUser", "Admin"))
 {
@@ -56,8 +56,8 @@
     @Html.ValidationSummary(true)
 
     <p>
-        Username : @Html.TextBox("UserName")
-        Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
+         Nazwa użytkownika : @Html.TextBox("UserName")
+        Uprawnienie: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
 
     </p>
 

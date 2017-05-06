@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "Role list";
+    ViewBag.Title = "Lista uprawnień";
 }
 
-<h2>RoleList</h2>
+<h2>Lista uprawnień</h2>
 
-@Html.ActionLink("Create new role", "RoleCreate") | @Html.ActionLink("Manage users role", "ManageUserRoles")
+@Html.ActionLink("Stwórz nowe uprawnienie", "RoleCreate") | @Html.ActionLink("Zarządzaj uprawnieniami użytkowników", "ManageUserRoles")
 <hr />
 <div>
     @foreach (var role in Model)

@@ -1,18 +1,18 @@
 ﻿
 @{
-    ViewBag.Title = "Create new role";
+    ViewBag.Title = "Stwórz nowe uprawnienie";
 }
 
 <h2>Create new role</h2>
 
-@Html.ActionLink("Roles", "RoleList") | @Html.ActionLink("Manage users role", "UserRoles")
+@Html.ActionLink("Lista uprawnień", "RoleList") | @Html.ActionLink("Uprawnienia użytkowników", "UserRoles")
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <div>
-        Role name
+        Nazwa uprawnienia
     </div>
     <div>
         @Html.TextBox("RoleName")
