@@ -2,7 +2,13 @@
 
 @{ 
     ViewBag.Title = "Edit";
+    Func<double, double, double> Sum = (a, b) => a + b;
+    Func<double, double, double> CenaNetto = (a, b) => a * b;
+    Func<double, double, double, double> CenaBrutto = (a, b, vat) => a * b * (1 + vat);
+    Func<double, double, double> CenaZRabatem = (a, rabat) => a * (1 - rabat);
 }
+ 
+<h2>Index</h2>
 
 <h2>Edit</h2>
 
@@ -74,7 +80,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Cost, "Cena" , htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Cost, "Cena" , htmlAttributes: new { @class = "control-label col-md-2", @id = "txtBox1" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
@@ -95,6 +101,22 @@
                 @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
             </div>
+        </div>
+
+        <div class="row">
+            <label>Ilość</label>
+            @Html.DropDownListFor(model => model.QuantityAvailable, Enumerable.Range(0, @Model.QuantityAvailable).Select(i => new SelectListItem { Text = (i+1).ToString(), Value = (i + 1).ToString() }), "Wybierz ilość", new { @class = "form-control", @id = "SelectedCount" })
+ 
+            <label>Cena netto</label>
+            
+            @CenaNetto((double)@Model.QuantityAvailable, @Model.Cost)
+            
+            <label>Cena brutto</label>
+            @CenaBrutto((double)@Model.QuantityAvailable, @Model.Cost, (double) @Model.Tax.Value)
+            <label>Cena z rabatem</label>
+            @CenaZRabatem(@CenaBrutto((double)@Model.QuantityAvailable, @Model.Cost, (double)@Model.Tax.Value), @Model.Discount)
+
+            <p>@Html.ActionLink("Włóż do koszyka", "PutToCart", "UserCarts", null, new { @class = "fullWidth btn btn-primary" })</p>
         </div>
 
         
