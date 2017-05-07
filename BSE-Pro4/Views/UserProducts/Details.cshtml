@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Informacje o produkcie";
+    Func<double,double> Rabat = (a) => a *100;
 }
 
 <h2>Informacje o produkcie</h2>
@@ -26,14 +27,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Category.CategoryName)
-        </dd>
-
-        <dt>
-           Podatek
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tax.Description)
         </dd>
 
         <dt>
@@ -81,7 +74,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Cost)
+            @Html.DisplayFor(model => model.Cost) zł
         </dd>
 
         <dt>
@@ -89,21 +82,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Discount)
+           @Rabat(Model.Discount) %
         </dd>
-
-        <dt>
-           Ilość
-        </dt> 
-
-        <dd>
-            @Html.DropDownList("drp", new SelectList(ViewBag.list, "Text", "Value"))
-        </dd>
+    
     </dl>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Do koszyka" class="btn btn-default" />
         </div>
     </div>
 </div>

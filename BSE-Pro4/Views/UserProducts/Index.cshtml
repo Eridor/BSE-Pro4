@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<BSE_Pro4.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Produkty";
+
+    Func<double, double> Rabat = (a) => a * 100;
+    Func<double, double, double> Brutto = (netto, vat) => netto * (1 + vat);
 }
 
 <h2>Produkty</h2>
@@ -28,7 +31,7 @@
             Dostępna ilość
         </th>
         <th>
-            Cena netto
+            Cena brutto
         </th>
         <th>
             Rabat
@@ -45,7 +48,7 @@
             @Html.DisplayFor(modelItem => item.Category.CategoryName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.Name) 
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Format)
@@ -57,10 +60,10 @@
             @Html.DisplayFor(modelItem => item.QuantityAvailable)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Cost)
+             @Html.DisplayFor(modelItem => item.Cost) zł
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Discount)
+          @Rabat(item.Discount) %
         </td>
         <td>
             @Html.ActionLink("Wyświetl", "Details", new { id=item.ProductId }) 
