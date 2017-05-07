@@ -1,0 +1,58 @@
+﻿@model BSE_Pro4.Models.Transaction
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Transaction</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionStatus.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransactionStatus.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserInvoice.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserInvoice.UserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserShipment.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserShipment.UserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalCost)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TransactionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
