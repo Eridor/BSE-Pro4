@@ -29,7 +29,7 @@ namespace BSE_Pro4.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            Product product = db.Products.Include(p => p.Author).Include(p => p.Category).Include(p => p.Tax).SingleOrDefault(t=> t.ProductId == id);
             if (product == null)
             {
                 return HttpNotFound();

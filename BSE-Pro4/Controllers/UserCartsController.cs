@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BSE_Pro4.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BSE_Pro4.Controllers
 {
@@ -17,12 +18,12 @@ namespace BSE_Pro4.Controllers
         // GET: UserCarts
         public ActionResult Index()
         {
-            var carts = db.Carts.Include(c => c.ProductItem).Include(c => c.User);
+            string userid = User.Identity.GetUserId();
+            var carts = db.Carts.Where(t => t.UserID == userid).Include(c => c.ProductItem).Include(c => c.User);
             return View(carts.ToList());
         }
 
-        // GET: UserCarts/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Sub(int? id)
         {
             if (id == null)
             {
@@ -33,38 +34,14 @@ namespace BSE_Pro4.Controllers
             {
                 return HttpNotFound();
             }
-            return View(cart);
+            cart.Quantity--;
+            if (cart.Quantity == 0)
+                db.Carts.Remove(cart);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
-
-        // GET: UserCarts/Create
-        public ActionResult Create()
-        {
-            ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name");
-            ViewBag.UserID = new SelectList(db.Users, "Id", "Email");
-            return View();
-        }
-
-        // POST: UserCarts/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CartId,UserID,ProductId,Quantity")] Cart cart)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Carts.Add(cart);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name", cart.ProductId);
-            ViewBag.UserID = new SelectList(db.Users, "Id", "Email", cart.UserID);
-            return View(cart);
-        }
-
-        // GET: UserCarts/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Add(int? id)
         {
             if (id == null)
             {
@@ -75,29 +52,10 @@ namespace BSE_Pro4.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name", cart.ProductId);
-            ViewBag.UserID = new SelectList(db.Users, "Id", "Email", cart.UserID);
-            return View(cart);
+            cart.Quantity++;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
-
-        // POST: UserCarts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CartId,UserID,ProductId,Quantity")] Cart cart)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(cart).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name", cart.ProductId);
-            ViewBag.UserID = new SelectList(db.Users, "Id", "Email", cart.UserID);
-            return View(cart);
-        }
-
         // GET: UserCarts/Delete/5
         public ActionResult Delete(int? id)
         {
