@@ -79,7 +79,7 @@ namespace BSE_Pro4.Models
         [Key]
         public int TransactionId { get; set; }
         public string UserId { get; set; }
-        public int UserShipmentId { get; set; }
+        public int? UserShipmentId { get; set; }
         public int? UserInvoiceId { get; set; }
         public double TotalCost { get; set; }
         public int TransactionStatusId { get; set; }

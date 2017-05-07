@@ -10,14 +10,24 @@
 
 <table class="table">
     <tr>
+    <tr>
         <th>
-            Nazwa produktu
-        </th> 
+            Nazwa
+        </th>
         <th>
             Ilość
         </th>
         <th>
             Wartość
+        </th>
+        <th>
+            Cena ze zniżką
+        </th>
+        <th>
+            Podatek
+        </th>
+        <th>
+            Suma
         </th>
         <th></th>
     </tr>
@@ -34,7 +44,27 @@
                 @Html.ActionLink("+", "Add", new { id = item.CartId }, new { @class = "fullWidth btn btn-success" })
             </td>
             <td>
-                @((item.Quantity * (item.ProductItem.Cost * (1 + item.ProductItem.Tax.Value))).ToString("C2"))
+                @if (item.ProductItem.Discount != 0)
+                {
+                    <s>@Html.DisplayFor(modelItem => item.ProductItem.Cost)</s> <span class="badge">-@item.ProductItem.Discount.ToString("p0")</span>
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.ProductItem.Cost)
+                }
+            </td>
+            <td>
+                @if (item.ProductItem.Discount != 0)
+                {
+                    @((item.ProductItem.Cost * item.ProductItem.Discount).ToString("C2"))
+
+                }
+            </td>
+            <td>
+                @item.ProductItem.Tax.Value.ToString("p0")
+            </td>
+            <td>
+                @((item.Quantity * item.ProductItem.Cost * item.ProductItem.Discount * (1 + item.ProductItem.Tax.Value)).ToString("C2"))
             </td>
             <td> 
                 @Html.ActionLink("Usuń z koszyka", "Delete", new { id = item.CartId }, new { @class = "fullWidth btn btn-danger" })
@@ -44,7 +74,13 @@
     <tr>
         <th>
            
-        </th>
+        </th><th>
+
+</th><th>
+
+</th><th>
+
+</th>
         <th>
             Suma
         </th>

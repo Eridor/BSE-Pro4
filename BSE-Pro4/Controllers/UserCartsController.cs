@@ -24,7 +24,7 @@ namespace BSE_Pro4.Controllers
             double sum =0;
             foreach (var item in carts)
             {
-                sum += (item.Quantity * (item.ProductItem.Cost * (1 + item.ProductItem.Tax.Value)));
+                sum += (item.Quantity * (item.ProductItem.Cost * item.ProductItem.Discount * (1 + item.ProductItem.Tax.Value)));
             }
             ViewBag.CartSum = sum;
             return View(carts.ToList());
@@ -91,10 +91,12 @@ namespace BSE_Pro4.Controllers
 
         public ActionResult AddItem(int? id, int? quantity)
         {
-            if (id == null || quantity == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            if (quantity == null) quantity = 1;
 
             var uid = User.Identity.GetUserId();
             var carts = db.Carts.Where(t => t.UserID == uid && t.ProductId == id);

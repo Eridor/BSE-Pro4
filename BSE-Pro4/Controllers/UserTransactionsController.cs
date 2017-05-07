@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BSE_Pro4.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BSE_Pro4.Controllers
 {
@@ -39,11 +40,49 @@ namespace BSE_Pro4.Controllers
         // GET: UserTransactions/Create
         public ActionResult Create()
         {
+            string userid = User.Identity.GetUserId();
+            var carts = db.Carts.Where(t => t.UserID == userid).Include(c => c.ProductItem).Include(c => c.User).Include(c => c.ProductItem.Tax);
+            
+            if (!carts.Any())
+                return RedirectToAction("Index");
+
+            Transaction ts = db.Transactions.Include(t=> t.TransactionItems.Select(s=> s.Product).Select(s=> s.Tax)).SingleOrDefault(
+                    t =>
+                        t.UserId == userid &&
+                        t.TransactionStatus == db.TransactionStatus.FirstOrDefault(k => k.Description == "Nowe"));
+            if (ts == null)
+            {
+                ts = new Transaction();
+                ts.TransactionStatus = db.TransactionStatus.FirstOrDefault(t => t.Description == "Nowe");
+                ts.UserId = userid;
+                db.Transactions.Add(ts);
+
+
+                double sum = 0;
+                foreach (var item in carts)
+                {
+                    db.TransactionItems.Add(new TransactionItem()
+                    {
+                        Cost = item.ProductItem.Cost,
+                        Count = item.Quantity,
+                        Discount = item.ProductItem.Discount,
+                        Product = item.ProductItem,
+                        Tax = item.ProductItem.Tax.Value,
+                        Transaction = ts
+
+                    });
+                    sum += (item.Quantity * item.ProductItem.Cost * item.ProductItem.Discount * (1 + item.ProductItem.Tax.Value));
+                }
+                ts.TotalCost = sum;
+                db.SaveChanges();
+            }
+            
+
             ViewBag.TransactionStatusId = new SelectList(db.TransactionStatus, "TransactionStatusId", "Description");
             ViewBag.UserId = new SelectList(db.Users, "Id", "Email");
             ViewBag.UserInvoiceId = new SelectList(db.UserShipments, "UserShipId", "UserID");
             ViewBag.UserShipmentId = new SelectList(db.UserShipments, "UserShipId", "UserID");
-            return View();
+            return View(ts);
         }
 
         // POST: UserTransactions/Create
@@ -65,6 +104,19 @@ namespace BSE_Pro4.Controllers
             ViewBag.UserInvoiceId = new SelectList(db.UserShipments, "UserShipId", "UserID", transaction.UserInvoiceId);
             ViewBag.UserShipmentId = new SelectList(db.UserShipments, "UserShipId", "UserID", transaction.UserShipmentId);
             return View(transaction);
+        }
+
+        public ActionResult Abort()
+        {
+            string userid = User.Identity.GetUserId();
+            Transaction ts = db.Transactions.SingleOrDefault(
+                    t =>
+                        t.UserId == userid &&
+                        t.TransactionStatus == db.TransactionStatus.FirstOrDefault(k => k.Description == "Nowe"));
+            db.Transactions.Remove(ts);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+            
         }
 
         // GET: UserTransactions/Edit/5
