@@ -1,16 +1,19 @@
 ﻿@model BSE_Pro4.Models.Product
-
 @{
     ViewBag.Title = "Informacje o produkcie";
+    Func<double, double, double> Sum = (a, b) => a + b;
+    Func<double, double, double> CenaNetto = (a, b) => a * b;
+    Func<double, double, double, double> CenaBrutto = (a, b, vat) => a * b * (1 + vat);
+    Func<double, double, double> CenaZRabatem = (a, rabat) => a * (1 - rabat);
 }
 
 <h2>Informacje o produkcie</h2>
 
-<div> 
+<div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Author.Name)
+            Autor
         </dt>
 
         <dd>
@@ -18,7 +21,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
+            Kategoria
         </dt>
 
         <dd>
@@ -26,7 +29,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Tax.Description)
+            Podatek
         </dt>
 
         <dd>
@@ -34,7 +37,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            Tytuł
         </dt>
 
         <dd>
@@ -42,7 +45,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Desc)
+            Opis
         </dt>
 
         <dd>
@@ -58,7 +61,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Pages)
+            Ilość stron
         </dt>
 
         <dd>
@@ -66,7 +69,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.QuantityAvailable)
+            Dostępna ilość
         </dt>
 
         <dd>
@@ -74,7 +77,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Cost)
+            Cena
         </dt>
 
         <dd>
@@ -82,17 +85,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Discount)
+            <label>Rabat</label>
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Discount)
         </dd>
-
-    </dl>
+</dl>
 </div>
 <p>
-     @Html.ActionLink("Powrót do listy", "Index") |
-     @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) 
-   
+    @Html.ActionLink("Back to List", "Index")|
+    @Html.ActionLink("Do koszyka", "Edit", new { id = Model.AuthorId })
 </p>
