@@ -186,7 +186,7 @@ namespace BSE_Pro4.Models
             nProduct.Desc = "Wkrocz w świat pizzy hawajskiej!";
             nProduct.Discount = 0.5;
             nProduct.Format = "Twarda oprawa";
-            nProduct.Name = "Z pizzą hawajską wśród zwierząd";
+            nProduct.Name = "Z pizzą hawajską wśród zwierząt";
             nProduct.Pages = "1230";
             nProduct.QuantityAvailable = 5;
             nProduct.Tax = _db.Taxes.First(t => t.Value == 0.23);
