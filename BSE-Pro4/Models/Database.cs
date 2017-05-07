@@ -154,7 +154,7 @@ namespace BSE_Pro4.Models
                 _db.Categories.Add(nCategory);
             }
 
-            List<double> podatki = new List<double>() { 0, 0.08, 0.23 };
+            List<double> podatki = new List<double>() { 0, 0.08, 0.23, 1 };
 
             foreach (var it in podatki)
             {
@@ -190,6 +190,32 @@ namespace BSE_Pro4.Models
             nProduct.Pages = "1230";
             nProduct.QuantityAvailable = 5;
             nProduct.Tax = _db.Taxes.First(t => t.Value == 0.23);
+            _db.Products.Add(nProduct);
+
+            nProduct = new Product();
+            nProduct.Category = _db.Categories.First(t => t.CategoryName == "Przygodowa");
+            nProduct.Author = nAuthor;
+            nProduct.Cost = 44.99;
+            nProduct.Desc = "W środku gratisy";
+            nProduct.Discount = 0.15;
+            nProduct.Format = "Miękka oprawa";
+            nProduct.Name = "Z cygarem na hot dogi";
+            nProduct.Pages = "123";
+            nProduct.QuantityAvailable = 3;
+            nProduct.Tax = _db.Taxes.First(t => t.Value == 1);
+            _db.Products.Add(nProduct);
+
+            nProduct = new Product();
+            nProduct.Category = _db.Categories.First(t => t.CategoryName == "Przygodowa");
+            nProduct.Author = nAuthor;
+            nProduct.Cost = 14.99;
+            nProduct.Desc = "W środku gratisy";
+            nProduct.Discount = 0;
+            nProduct.Format = "E-book";
+            nProduct.Name = "Zniżki to zło";
+            nProduct.Pages = "412";
+            nProduct.QuantityAvailable = 99;
+            nProduct.Tax = _db.Taxes.First(t => t.Value == 0.08);
             _db.Products.Add(nProduct);
 
             _db.SaveChanges();

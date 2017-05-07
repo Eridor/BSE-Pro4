@@ -97,6 +97,14 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             
             <div class="form-group">
+                <p class="control-label col-md-2"></p>
+                <div class="col-md-10">
+                    @Html.ActionLink("Dodaj nowe dane adresowe", "Create", "UserShipments", null, new {@class = "fullWidth btn btn-info"})
+                </div>
+            </div>
+
+            
+            <div class="form-group">
                 <p class="control-label col-md-2">Dane wysyłki</p>
                 <div class="col-md-10">
                     @Html.DropDownList("UserShipmentId", null, htmlAttributes: new { @class = "form-control" })
@@ -116,13 +124,20 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Wyślij" class="btn btn-success" />
-                    @Html.ActionLink("Anuluj transakcję", "Abort", null, new { @class = "fullWidth btn btn-danger" })
+                    @if (ViewBag.IsUserAddress)
+                    {
+                        <input type="submit" value="Wyślij" class="btn btn-success"/>
+                    }
+                    else
+                    {
+                        <input type="submit" value="Wyślij" class="btn btn-basic" disabled/>
+                    }
+                    @Html.ActionLink("Anuluj transakcję", "Abort", null, new {@class = "fullWidth btn btn-danger"})
                 </div>
             </div>
         </div>
     }
 
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Powrót do listy", "Index")
     </div>
