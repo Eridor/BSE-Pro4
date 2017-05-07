@@ -80,11 +80,11 @@ namespace BSE_Pro4.Controllers
             product.QuantityAvailable -= 1;
             Cart newCart = new Cart();
 
-            string userid = User.Identity.GetUserId();
-            var carts = db.Carts.Where(t => t.UserID == userid).Include(c => c.ProductItem).Include(c => c.User);
+           /// string userid = User.Identity.GetUserId();
+          //  var carts = db.Carts.Where(t => t.UserID == userid).Include(c => c.ProductItem).Include(c => c.User);
 
             newCart.ProductId = product.ProductId;
-            newCart.UserID = userid;
+           // newCart.UserID = userid;
 
             db.SaveChanges();
 
