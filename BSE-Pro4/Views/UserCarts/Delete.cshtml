@@ -1,30 +1,30 @@
-﻿@model BSE_Pro4.Models.Author
+﻿@model BSE_Pro4.Models.Cart
 
 @{
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Kasowanie pozycji z koszyka</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Czy jesteś pewny?</h3>
 <div>
-    <h4>Author</h4>
+    <h4>Szczegóły</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            Nazwa pozycji
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.ProductItem.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Surname)
+            Ilość sztuk
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Surname)
+            @Html.DisplayFor(model => model.Quantity)
         </dd>
 
     </dl>
@@ -33,8 +33,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Usuń" class="btn btn-danger" /> |
+            @Html.ActionLink("Powrót", "Index")
         </div>
     }
 </div>

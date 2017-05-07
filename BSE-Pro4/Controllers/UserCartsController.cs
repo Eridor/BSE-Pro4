@@ -19,7 +19,14 @@ namespace BSE_Pro4.Controllers
         public ActionResult Index()
         {
             string userid = User.Identity.GetUserId();
-            var carts = db.Carts.Where(t => t.UserID == userid).Include(c => c.ProductItem).Include(c => c.User);
+            var carts = db.Carts.Where(t => t.UserID == userid).Include(c => c.ProductItem).Include(c => c.User).Include(c=> c.ProductItem.Tax);
+
+            double sum =0;
+            foreach (var item in carts)
+            {
+                sum += (item.Quantity * (item.ProductItem.Cost * (1 + item.ProductItem.Tax.Value)));
+            }
+            ViewBag.CartSum = sum;
             return View(carts.ToList());
         }
 
@@ -63,7 +70,7 @@ namespace BSE_Pro4.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cart cart = db.Carts.Find(id);
+            Cart cart = db.Carts.Include(c => c.ProductItem).SingleOrDefault(t => t.CartId == id);
             if (cart == null)
             {
                 return HttpNotFound();
@@ -78,6 +85,35 @@ namespace BSE_Pro4.Controllers
         {
             Cart cart = db.Carts.Find(id);
             db.Carts.Remove(cart);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult AddItem(int? id, int? quantity)
+        {
+            if (id == null || quantity == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var uid = User.Identity.GetUserId();
+            var carts = db.Carts.Where(t => t.UserID == uid && t.ProductId == id);
+            if (!carts.Any())
+            {
+                Cart cart = new Cart();
+                cart.ProductItem = db.Products.FirstOrDefault(t => t.ProductId == id);
+                if (cart.ProductItem == null)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                cart.UserID = uid;
+                cart.Quantity = (int) quantity;
+
+                db.Carts.Add(cart);
+            }
+            else
+            {
+                var cart = carts.Single();
+                cart.Quantity += (int) quantity;
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }

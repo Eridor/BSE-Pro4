@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Koszyk";
+    double sum = 0;
 } 
 
 <h2>Zawartość koszyka</h2>
@@ -14,6 +15,9 @@
         </th> 
         <th>
             Ilość
+        </th>
+        <th>
+            Wartość
         </th>
         <th></th>
     </tr>
@@ -29,14 +33,29 @@
                 @Html.DisplayFor(modelItem => item.Quantity)
                 @Html.ActionLink("+", "Add", new { id = item.CartId }, new { @class = "fullWidth btn btn-success" })
             </td>
+            <td>
+                @((item.Quantity * (item.ProductItem.Cost * (1 + item.ProductItem.Tax.Value))).ToString("C2"))
+            </td>
             <td> 
                 @Html.ActionLink("Usuń z koszyka", "Delete", new { id = item.CartId }, new { @class = "fullWidth btn btn-danger" })
             </td>
         </tr>
     }
-    
+    <tr>
+        <th>
+           
+        </th>
+        <th>
+            Suma
+        </th>
+        <th>
+            @ViewBag.CartSum.ToString("C2")
+        </th>
+        <th></th>
+    </tr>
 </table>
 @if (Model.Count() != 0)
 {
+
     <p>@Html.ActionLink("Złóż zamówienie  »", "Index", "UsersTransactions", new {@class = "fullWidth btn btn-primary"})</p>
 } 
