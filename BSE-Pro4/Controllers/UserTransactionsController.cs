@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace BSE_Pro4.Controllers
 {
+    [Authorize]
     public class UserTransactionsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -18,7 +19,8 @@ namespace BSE_Pro4.Controllers
         // GET: UserTransactions
         public ActionResult Index()
         {
-            var transactions = db.Transactions.Include(t => t.TransactionStatus).Include(t => t.User).Include(t => t.UserInvoice).Include(t => t.UserShipment);
+            string userid = User.Identity.GetUserId();
+            var transactions = db.Transactions.Include(t => t.TransactionStatus).Include(t => t.User).Include(t => t.UserInvoice).Include(t => t.UserShipment).Where(t => t.UserId == userid);
             return View(transactions.ToList());
         }
 
@@ -29,7 +31,8 @@ namespace BSE_Pro4.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Transaction transaction = db.Transactions.Find(id);
+            string userid = User.Identity.GetUserId();
+            Transaction transaction = db.Transactions.Include(t => t.TransactionStatus).Include(t => t.User).Include(t => t.UserInvoice).Include(t => t.UserShipment).FirstOrDefault(t => t.UserId == userid && t.TransactionId == id);
             if (transaction == null)
             {
                 return HttpNotFound();
@@ -71,17 +74,15 @@ namespace BSE_Pro4.Controllers
                         Transaction = ts
 
                     });
-                    sum += (item.Quantity * item.ProductItem.Cost * item.ProductItem.Discount * (1 + item.ProductItem.Tax.Value));
+                    sum += (item.Quantity * item.ProductItem.Cost * (1 - item.ProductItem.Discount) * (1 + item.ProductItem.Tax.Value));
                 }
                 ts.TotalCost = sum;
                 db.SaveChanges();
             }
             
-
-            ViewBag.TransactionStatusId = new SelectList(db.TransactionStatus, "TransactionStatusId", "Description");
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Email");
-            ViewBag.UserInvoiceId = new SelectList(db.UserShipments, "UserShipId", "UserID");
-            ViewBag.UserShipmentId = new SelectList(db.UserShipments, "UserShipId", "UserID");
+            
+            ViewBag.UserInvoiceId = new SelectList(db.UserShipments, "UserShipId", "AdditionalInfo");
+            ViewBag.UserShipmentId = new SelectList(db.UserShipments, "UserShipId", "AdditionalInfo");
             return View(ts);
         }
 
@@ -90,11 +91,20 @@ namespace BSE_Pro4.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TransactionId,UserId,UserShipmentId,UserInvoiceId,TotalCost,TransactionStatusId")] Transaction transaction)
+        public ActionResult Create([Bind(Include = "UserShipmentId,UserInvoiceId")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
-                db.Transactions.Add(transaction);
+                string userid = User.Identity.GetUserId();
+                Transaction ts = db.Transactions.Include(t => t.TransactionItems.Select(s => s.Product).Select(s => s.Tax)).SingleOrDefault(
+                    t =>
+                        t.UserId == userid &&
+                        t.TransactionStatus == db.TransactionStatus.FirstOrDefault(k => k.Description == "Nowe"));
+
+                ts.UserInvoice = transaction.UserInvoice;
+                ts.UserShipment = transaction.UserShipment;
+                ts.TransactionStatus = db.TransactionStatus.FirstOrDefault(k => k.Description == "Kompletowane");
+                db.Carts.RemoveRange(db.Carts.Where(t => t.UserID == userid));
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -115,47 +125,8 @@ namespace BSE_Pro4.Controllers
                         t.TransactionStatus == db.TransactionStatus.FirstOrDefault(k => k.Description == "Nowe"));
             db.Transactions.Remove(ts);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "UserCarts");
             
-        }
-
-        // GET: UserTransactions/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Transaction transaction = db.Transactions.Find(id);
-            if (transaction == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.TransactionStatusId = new SelectList(db.TransactionStatus, "TransactionStatusId", "Description", transaction.TransactionStatusId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Email", transaction.UserId);
-            ViewBag.UserInvoiceId = new SelectList(db.UserShipments, "UserShipId", "UserID", transaction.UserInvoiceId);
-            ViewBag.UserShipmentId = new SelectList(db.UserShipments, "UserShipId", "UserID", transaction.UserShipmentId);
-            return View(transaction);
-        }
-
-        // POST: UserTransactions/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TransactionId,UserId,UserShipmentId,UserInvoiceId,TotalCost,TransactionStatusId")] Transaction transaction)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(transaction).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.TransactionStatusId = new SelectList(db.TransactionStatus, "TransactionStatusId", "Description", transaction.TransactionStatusId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Email", transaction.UserId);
-            ViewBag.UserInvoiceId = new SelectList(db.UserShipments, "UserShipId", "UserID", transaction.UserInvoiceId);
-            ViewBag.UserShipmentId = new SelectList(db.UserShipments, "UserShipId", "UserID", transaction.UserShipmentId);
-            return View(transaction);
         }
 
         protected override void Dispose(bool disposing)

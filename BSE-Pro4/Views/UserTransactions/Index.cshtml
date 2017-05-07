@@ -12,19 +12,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TransactionStatus.Description)
+            Status
         </th>
         <th>
             @Html.DisplayNameFor(model => model.User.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserInvoice.UserID)
+            Faktura
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserShipment.UserID)
+            Wysyłka
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TotalCost)
+            Koszt
         </th>
         <th></th>
     </tr>
@@ -38,18 +38,16 @@
             @Html.DisplayFor(modelItem => item.User.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserInvoice.UserID)
+            @Html.DisplayFor(modelItem => item.UserInvoice.AdditionalInfo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserShipment.UserID)
+            @Html.DisplayFor(modelItem => item.UserShipment.AdditionalInfo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TotalCost)
+            @item.TotalCost.ToString("C2")
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TransactionId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TransactionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TransactionId })
+            @Html.ActionLink("Details", "Details", new { id=item.TransactionId }) 
         </td>
     </tr>
 }

@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace BSE_Pro4.Controllers
 {
+    [Authorize]
     public class UserCartsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -24,7 +25,7 @@ namespace BSE_Pro4.Controllers
             double sum =0;
             foreach (var item in carts)
             {
-                sum += (item.Quantity * (item.ProductItem.Cost * item.ProductItem.Discount * (1 + item.ProductItem.Tax.Value)));
+                sum += (item.Quantity * (item.ProductItem.Cost * (1-item.ProductItem.Discount) * (1 + item.ProductItem.Tax.Value)));
             }
             ViewBag.CartSum = sum;
             return View(carts.ToList());

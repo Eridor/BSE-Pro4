@@ -1,0 +1,99 @@
+﻿@model IEnumerable<BSE_Pro4.Models.UserShipment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>User shipments</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Invoice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Surname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ZipCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Street)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberHouse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberFlat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telephone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdditionalInfo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Surname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Street)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberHouse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberFlat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telephone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdditionalInfo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserShipId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UserShipId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UserShipId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.TransactionStatus.Description)
+            Status
         </dt>
 
         <dd>
@@ -27,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UserInvoice.UserID)
+            Faktura
         </dt>
 
         <dd>
@@ -35,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UserShipment.UserID)
+            Wysyłka
         </dt>
 
         <dd>
@@ -43,7 +43,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TotalCost)
+            Koszt
         </dt>
 
         <dd>
@@ -53,6 +53,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TransactionId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace BSE_Pro4.Controllers
 {
+    [Authorize]
     public class UserProductsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

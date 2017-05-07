@@ -42,7 +42,7 @@ namespace BSE_Pro4.Controllers
         {
             ViewBag.AuthorId = new SelectList(db.Authors, "AuthorId", "Name");
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName");
-            ViewBag.TaxId = new SelectList(db.Taxes, "TaxId", "Description");
+            ViewBag.TaxId = new SelectList(db.Taxes, "TaxId", "Value");
             return View();
         }
 
@@ -62,7 +62,7 @@ namespace BSE_Pro4.Controllers
 
             ViewBag.AuthorId = new SelectList(db.Authors, "AuthorId", "Name", product.AuthorId);
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName", product.CategoryId);
-            ViewBag.TaxId = new SelectList(db.Taxes, "TaxId", "Description", product.TaxId);
+            ViewBag.TaxId = new SelectList(db.Taxes, "TaxId", "Value", product.TaxId);
             return View(product);
         }
 
@@ -80,7 +80,7 @@ namespace BSE_Pro4.Controllers
             }
             ViewBag.AuthorId = new SelectList(db.Authors, "AuthorId", "Name", product.AuthorId);
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName", product.CategoryId);
-            ViewBag.TaxId = new SelectList(db.Taxes, "TaxId", "Description", product.TaxId);
+            ViewBag.TaxId = new SelectList(db.Taxes, "TaxId", "Value", product.TaxId);
             return View(product);
         }
 
@@ -99,7 +99,7 @@ namespace BSE_Pro4.Controllers
             }
             ViewBag.AuthorId = new SelectList(db.Authors, "AuthorId", "Name", product.AuthorId);
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName", product.CategoryId);
-            ViewBag.TaxId = new SelectList(db.Taxes, "TaxId", "Description", product.TaxId);
+            ViewBag.TaxId = new SelectList(db.Taxes, "TaxId", "Value", product.TaxId);
             return View(product);
         }
 

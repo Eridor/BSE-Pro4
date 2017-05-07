@@ -48,18 +48,18 @@
                         <td>
                             @if (item.Discount != 0)
                             {
-                                <s>@Html.DisplayFor(modelItem => item.Cost)</s> <span class="badge">-@item.Discount.ToString("p0")</span>
+                                <s>@item.Cost.ToString("C2")</s> <span class="badge">-@item.Discount.ToString("p0")</span>
                             }
                             else
                             {
-                                @Html.DisplayFor(modelItem => item.Cost)
+                                @item.Cost.ToString("C2")
                             }
 
                         </td>
                         <td>
                             @if (item.Discount != 0)
                             {
-                                @((item.Cost * item.Discount).ToString("C2"))
+                                @((item.Cost * (1 - item.Discount)).ToString("C2"))
                                 
                             }
                         </td>
@@ -67,7 +67,7 @@
                             <span class="badge">@item.Tax.ToString("p0")</span>
 </td>
                         <td>
-                            @((item.Count * item.Cost * item.Discount * (1+ item.Tax) ).ToString("C2"))
+                            @((item.Count * item.Cost * (1 - item.Discount) * (1+ item.Tax) ).ToString("C2"))
                         </td>
                     </tr>
                 }
@@ -95,16 +95,9 @@
             <hr />
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            
             <div class="form-group">
-                @Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserShipmentId, "UserShipmentId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <p class="control-label col-md-2">Dane wysyłki</p>
                 <div class="col-md-10">
                     @Html.DropDownList("UserShipmentId", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.UserShipmentId, "", new { @class = "text-danger" })
@@ -112,28 +105,14 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.UserInvoiceId, "UserInvoiceId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <p class="control-label col-md-2">Dane faktury</p>
                 <div class="col-md-10">
                     @Html.DropDownList("UserInvoiceId", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.UserInvoiceId, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.TotalCost, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TotalCost, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.TotalCost, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.TransactionStatusId, "TransactionStatusId", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("TransactionStatusId", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.TransactionStatusId, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">

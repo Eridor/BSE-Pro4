@@ -211,6 +211,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UserCartsController.cs" />
     <Compile Include="Controllers\UserProductsController.cs" />
+    <Compile Include="Controllers\UserShipmentsController.cs" />
     <Compile Include="Controllers\UserTransactionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -344,6 +345,11 @@
     <Content Include="Views\UserTransactions\Details.cshtml" />
     <Content Include="Views\UserTransactions\Edit.cshtml" />
     <Content Include="Views\UserTransactions\Index.cshtml" />
+    <Content Include="Views\UserShipments\Create.cshtml" />
+    <Content Include="Views\UserShipments\Delete.cshtml" />
+    <Content Include="Views\UserShipments\Details.cshtml" />
+    <Content Include="Views\UserShipments\Edit.cshtml" />
+    <Content Include="Views\UserShipments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

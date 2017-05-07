@@ -46,17 +46,17 @@
             <td>
                 @if (item.ProductItem.Discount != 0)
                 {
-                    <s>@Html.DisplayFor(modelItem => item.ProductItem.Cost)</s> <span class="badge">-@item.ProductItem.Discount.ToString("p0")</span>
+                    <s>@item.ProductItem.Cost.ToString("C2")</s> <span class="badge">-@item.ProductItem.Discount.ToString("p0")</span>
                 }
                 else
                 {
-                    @Html.DisplayFor(modelItem => item.ProductItem.Cost)
+                    @item.ProductItem.Cost.ToString("C2")
                 }
             </td>
             <td>
                 @if (item.ProductItem.Discount != 0)
                 {
-                    @((item.ProductItem.Cost * item.ProductItem.Discount).ToString("C2"))
+                    @((item.ProductItem.Cost * (1-item.ProductItem.Discount)).ToString("C2"))
 
                 }
             </td>
@@ -64,7 +64,7 @@
                 @item.ProductItem.Tax.Value.ToString("p0")
             </td>
             <td>
-                @((item.Quantity * item.ProductItem.Cost * item.ProductItem.Discount * (1 + item.ProductItem.Tax.Value)).ToString("C2"))
+                @((item.Quantity * item.ProductItem.Cost * (1- item.ProductItem.Discount) * (1 + item.ProductItem.Tax.Value)).ToString("C2"))
             </td>
             <td> 
                 @Html.ActionLink("Usuń z koszyka", "Delete", new { id = item.CartId }, new { @class = "fullWidth btn btn-danger" })
