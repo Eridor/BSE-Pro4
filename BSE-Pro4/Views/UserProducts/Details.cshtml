@@ -1,15 +1,13 @@
 ﻿@model BSE_Pro4.Models.Product
+
 @{
-    ViewBag.Title = "Informacje o produkcie";
-    Func<double, double, double> Sum = (a, b) => a + b;
-    Func<double, double, double> CenaNetto = (a, b) => a * b;
-    Func<double, double, double, double> CenaBrutto = (a, b, vat) => a * b * (1 + vat);
-    Func<double, double, double> CenaZRabatem = (a, rabat) => a * (1 - rabat);
+    ViewBag.Title = "Details";
 }
 
-<h2>Informacje o produkcie</h2>
+<h2>Details</h2>
 
 <div>
+    <h4>Product</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -17,7 +15,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Author.Name)
+            @Html.DisplayFor(model => model.Author.Name) @Html.DisplayFor(model => model.Author.Surname)
         </dd>
 
         <dt>
@@ -29,7 +27,7 @@
         </dd>
 
         <dt>
-            Podatek
+            @Html.DisplayNameFor(model => model.Tax.Description)
         </dt>
 
         <dd>
@@ -37,7 +35,7 @@
         </dd>
 
         <dt>
-            Tytuł
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
 
         <dd>
@@ -53,7 +51,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Format)
+            Format
         </dt>
 
         <dd>
@@ -85,15 +83,16 @@
         </dd>
 
         <dt>
-            <label>Rabat</label>
+            Rabat
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Discount)
         </dd>
-</dl>
+
+    </dl>
 </div>
 <p>
-    @Html.ActionLink("Back to List", "Index")|
-    @Html.ActionLink("Do koszyka", "Edit", new { id = Model.AuthorId })
+    @Html.ActionLink("Do koszyka", "Edit", new { id = Model.ProductId }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>

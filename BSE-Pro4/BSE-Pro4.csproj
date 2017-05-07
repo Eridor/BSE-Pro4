@@ -338,6 +338,7 @@
     <Content Include="Views\UserProducts\Index.cshtml" />
     <Content Include="Views\UserCarts\Delete.cshtml" />
     <Content Include="Views\UserCarts\Index.cshtml" />
+    <Content Include="Views\UserProducts\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

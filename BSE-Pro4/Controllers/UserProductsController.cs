@@ -77,6 +77,17 @@ namespace BSE_Pro4.Controllers
             {
                 return HttpNotFound();
             }
+            product.QuantityAvailable -= 1;
+            Cart newCart = new Cart();
+
+            string userid = User.Identity.GetUserId();
+            var carts = db.Carts.Where(t => t.UserID == userid).Include(c => c.ProductItem).Include(c => c.User);
+
+            newCart.ProductId = product.ProductId;
+            newCart.UserID = userid;
+
+            db.SaveChanges();
+
             ViewBag.AuthorId = new SelectList(db.Authors, "AuthorId", "Name", product.AuthorId);
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName", product.CategoryId);
             ViewBag.TaxId = new SelectList(db.Taxes, "TaxId", "Description", product.TaxId);
