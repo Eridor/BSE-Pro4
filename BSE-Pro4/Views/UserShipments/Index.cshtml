@@ -7,7 +7,7 @@
 <h2>Adresy wysyłki/faktury</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Stwórz nowe dane wysyłkowe", "Create") | @Html.ActionLink("Powrót do panelu użytkownika", "Index", "ApplicationUsers")
 </p>
 <table class="table">
     <tr>
@@ -89,11 +89,14 @@
             @Html.DisplayFor(modelItem => item.AdditionalInfo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserShipId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserShipId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserShipId })
+            @Html.ActionLink("Edycja", "Edit", new { id=item.UserShipId }) |
+            @Html.ActionLink("Szczegóły", "Details", new { id=item.UserShipId }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.UserShipId })
         </td>
     </tr>
 }
 
 </table>
+<div>
+    @Html.ActionLink("Powrót do panelu użytkownika", "Index","ApplicationUsers")
+</div>
