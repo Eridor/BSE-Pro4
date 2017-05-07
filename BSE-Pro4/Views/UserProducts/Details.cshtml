@@ -1,13 +1,13 @@
 ﻿@model BSE_Pro4.Models.Product
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Informacje o produkcie";
 }
 
-<h2>Details</h2>
+<h2>Informacje o produkcie</h2>
 
 <div>
-    <h4>Product</h4>
+    <h4>Książka</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -27,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Tax.Description)
+           Podatek
         </dt>
 
         <dd>
@@ -35,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            Tytuł
         </dt>
 
         <dd>
@@ -94,5 +94,5 @@
 </div>
 <p>
     @Html.ActionLink("Do koszyka", "Edit", new { id = Model.ProductId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Powrót do listy", "Index")
 </p>
