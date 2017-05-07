@@ -36,7 +36,8 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductItem.Name)
+                @Html.ActionLink(item.ProductItem.Name, "Details", "UserProducts", new { id = item.ProductId }, null)
+
             </td>       
             <td>
                 @Html.ActionLink("-", "Sub", new { id = item.CartId }, new { @class = "fullWidth btn btn-danger" })

@@ -81,8 +81,9 @@ namespace BSE_Pro4.Controllers
             }
             
             
-            ViewBag.UserInvoiceId = new SelectList(db.UserShipments, "UserShipId", "AdditionalInfo");
-            ViewBag.UserShipmentId = new SelectList(db.UserShipments, "UserShipId", "AdditionalInfo");
+            ViewBag.UserInvoiceId = new SelectList(db.UserShipments.Where(t => t.UserID == userid), "UserShipId", "AdditionalInfo");
+            ViewBag.UserShipmentId = new SelectList(db.UserShipments.Where(t => t.UserID == userid), "UserShipId", "AdditionalInfo");
+            ViewBag.IsUserAddress = db.UserShipments.Where(t => t.UserID == userid).Any();
             return View(ts);
         }
 
