@@ -6,6 +6,8 @@
 
 <h2>Informacje o produkcie</h2>
 
+@using (Html.BeginForm("AddItem","UserCarts"))
+{
 <div>
     <h4>Książka</h4>
     <hr />
@@ -90,9 +92,23 @@
             @Html.DisplayFor(model => model.Discount)
         </dd>
 
+        <dt>
+           Ilość
+        </dt> 
+
+        <dd>
+            @Html.DropDownList("drp", new SelectList(ViewBag.list, "Text", "Value"))
+        </dd>
     </dl>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Do koszyka", "Edit", new { id = Model.ProductId }) |
+}
+<p> 
+    
     @Html.ActionLink("Powrót do listy", "Index")
 </p>

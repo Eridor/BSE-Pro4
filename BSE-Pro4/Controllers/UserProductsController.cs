@@ -18,7 +18,7 @@ namespace BSE_Pro4.Controllers
         // GET: UserProducts
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Author).Include(p => p.Category).Include(p => p.Tax.Description);
+            var products = db.Products.Include(p => p.Author).Include(p => p.Category).Include(p => p.Tax);
             return View(products.ToList());
         }
 
@@ -32,6 +32,13 @@ namespace BSE_Pro4.Controllers
             string userid = User.Identity.GetUserId();
            // var carts = db.Carts.Where(t => t.UserID == userid).Include(c => c.ProductItem).Include(c => c.User).Include(c => c.ProductItem.Tax);
             Product product = db.Products.Include(p => p.Author).Include(p => p.Category).Include(p => p.Tax).SingleOrDefault(t => t.ProductId == id);
+
+            ////For combobox
+            var list = new List<SelectListItem>();
+            for (var i = 1; i <= product.QuantityAvailable; i++)
+                list.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+            ViewBag.list = list;
+
             if (product == null)
             {
                 return HttpNotFound();
