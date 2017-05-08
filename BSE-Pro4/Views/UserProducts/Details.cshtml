@@ -18,7 +18,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Author.Name) @Html.DisplayFor(model => model.Author.Surname)
+            @Html.ActionLink((Model.Author.Name + " " + Model.Author.Surname), "Author", new { id = Model.AuthorId }) 
+            
         </dd>
 
         <dt>
@@ -26,7 +27,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Category.CategoryName)
+            @Html.ActionLink(Model.Category.CategoryName, "Category", new { id = Model.CategoryId }) 
         </dd>
 
         <dt>

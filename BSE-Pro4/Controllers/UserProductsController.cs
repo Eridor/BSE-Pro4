@@ -22,6 +22,33 @@ namespace BSE_Pro4.Controllers
             return View(products.ToList());
         }
 
+        public ActionResult Category(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Category category = db.Categories.Include(t=>t.Products).SingleOrDefault(t=>t.CategoryId == id);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+            return View(category);
+        }
+        public ActionResult Author(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Author author = db.Authors.Include(t => t.Products).SingleOrDefault(t => t.AuthorId == id);
+            if (author == null)
+            {
+                return HttpNotFound();
+            }
+            return View(author);
+        }
+
         // GET: UserProducts/Details/5
         public ActionResult Details(int? id)
         {

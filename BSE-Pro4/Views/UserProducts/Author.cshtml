@@ -1,0 +1,28 @@
+﻿@model BSE_Pro4.Models.Author
+
+@{
+    ViewBag.Title = "Produkty autora";
+}
+
+<h2>Autor - @Model.Name @Model.Surname </h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Nazwa
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Products) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Wyświetl", "Details", new { id = item.ProductId }) 
+        </td>
+    </tr>
+}
+
+</table>

@@ -41,6 +41,7 @@ namespace BSE_Pro4.Models
         public int AuthorId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+        public List<Product> Products { get; set; }
     }
 
     public class Cart

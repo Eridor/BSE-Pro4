@@ -350,6 +350,8 @@
     <Content Include="Views\UserShipments\Details.cshtml" />
     <Content Include="Views\UserShipments\Edit.cshtml" />
     <Content Include="Views\UserShipments\Index.cshtml" />
+    <Content Include="Views\UserProducts\Category.cshtml" />
+    <Content Include="Views\UserProducts\Author.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
