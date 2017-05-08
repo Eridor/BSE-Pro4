@@ -32,7 +32,7 @@ namespace BSE_Pro4.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             string userid = User.Identity.GetUserId();
-            UserShipment userShipment = db.UserShipments.Find(id);
+            UserShipment userShipment = db.UserShipments.Include(t=>t.User).SingleOrDefault(t=> t.UserShipId == id);
             if (userShipment == null || userShipment.UserID != userid)
             {
                 return HttpNotFound();
