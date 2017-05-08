@@ -105,7 +105,13 @@ namespace BSE_Pro4.Controllers
                 ts.UserInvoiceId = transaction.UserInvoiceId;
                 ts.UserShipmentId = transaction.UserShipmentId;
                 ts.TransactionStatus = db.TransactionStatus.FirstOrDefault(k => k.Description == "Kompletowane");
+                var cartbuff = db.Carts.Include(t=>t.ProductItem).Where(t => t.UserID == userid);
+                foreach (var item in cartbuff)
+                {
+                    item.ProductItem.QuantityAvailable -= item.Quantity;
+                }
                 db.Carts.RemoveRange(db.Carts.Where(t => t.UserID == userid));
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

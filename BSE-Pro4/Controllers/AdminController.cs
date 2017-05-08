@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace BSE_Pro4.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         ApplicationDbContext _db = new ApplicationDbContext();

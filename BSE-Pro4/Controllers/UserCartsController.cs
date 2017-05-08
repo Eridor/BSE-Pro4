@@ -45,6 +45,7 @@ namespace BSE_Pro4.Controllers
             cart.Quantity--;
             if (cart.Quantity == 0)
                 db.Carts.Remove(cart);
+            
             db.SaveChanges();
 
             return RedirectToAction("Index");
@@ -55,12 +56,16 @@ namespace BSE_Pro4.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cart cart = db.Carts.Find(id);
+            Cart cart = db.Carts.Include(t=> t.ProductItem).SingleOrDefault(t=>t.CartId == id);
             if (cart == null)
             {
                 return HttpNotFound();
             }
             cart.Quantity++;
+            if (cart.Quantity > cart.ProductItem.QuantityAvailable)
+            {
+                cart.Quantity = cart.ProductItem.QuantityAvailable;
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }

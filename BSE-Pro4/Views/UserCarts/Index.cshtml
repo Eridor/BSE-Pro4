@@ -42,7 +42,15 @@
             <td>
                 @Html.ActionLink("-", "Sub", new { id = item.CartId }, new { @class = "fullWidth btn btn-danger" })
                 @Html.DisplayFor(modelItem => item.Quantity)
-                @Html.ActionLink("+", "Add", new { id = item.CartId }, new { @class = "fullWidth btn btn-success" })
+                @if (@item.ProductItem.QuantityAvailable > @item.Quantity)
+                {
+                    @Html.ActionLink("+", "Add", new { id = item.CartId }, new { @class = "fullWidth btn btn-success" })
+                }
+                else
+                {
+                    <button type="button" class="btn btn-success disabled">+</button>
+                }
+                
             </td>
             <td>
                 @if (item.ProductItem.Discount != 0)
