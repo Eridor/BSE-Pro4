@@ -43,7 +43,7 @@ namespace BSE_Pro4.Controllers
         // GET: AdminUserShipments/Create
         public ActionResult Create()
         {
-            ViewBag.UserID = new SelectList(db.Users, "Id", "Email");
+            ViewBag.UserID = new SelectList(db.Users.Where(t=> t.Id == User.Identity.GetUserId()), "Id", "Email");
             return View();
         }
 
@@ -63,7 +63,7 @@ namespace BSE_Pro4.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserID = new SelectList(db.Users, "Id", "Email", userShipment.UserID);
+            ViewBag.UserID = new SelectList(db.Users.Where(t => t.Id == User.Identity.GetUserId()), "Id", "Email", userShipment.UserID);
             return View(userShipment);
         }
 

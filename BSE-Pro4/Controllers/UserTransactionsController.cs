@@ -32,7 +32,7 @@ namespace BSE_Pro4.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             string userid = User.Identity.GetUserId();
-            Transaction transaction = db.Transactions.Include(t => t.TransactionStatus).Include(t => t.User).Include(t => t.UserInvoice).Include(t => t.UserShipment).FirstOrDefault(t => t.UserId == userid && t.TransactionId == id);
+            Transaction transaction = db.Transactions.Include(t => t.TransactionStatus).Include(t => t.User).Include(t => t.UserInvoice).Include(t => t.UserShipment).Include(t => t.TransactionItems.Select(s => s.Product).Select(s => s.Tax)).FirstOrDefault(t => t.UserId == userid && t.TransactionId == id);
             if (transaction == null)
             {
                 return HttpNotFound();
@@ -102,8 +102,8 @@ namespace BSE_Pro4.Controllers
                         t.UserId == userid &&
                         t.TransactionStatus == db.TransactionStatus.FirstOrDefault(k => k.Description == "Nowe"));
 
-                ts.UserInvoice = transaction.UserInvoice;
-                ts.UserShipment = transaction.UserShipment;
+                ts.UserInvoiceId = transaction.UserInvoiceId;
+                ts.UserShipmentId = transaction.UserShipmentId;
                 ts.TransactionStatus = db.TransactionStatus.FirstOrDefault(k => k.Description == "Kompletowane");
                 db.Carts.RemoveRange(db.Carts.Where(t => t.UserID == userid));
                 db.SaveChanges();
