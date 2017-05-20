@@ -60,16 +60,18 @@ namespace BSE_Pro4.Controllers
            // var carts = db.Carts.Where(t => t.UserID == userid).Include(c => c.ProductItem).Include(c => c.User).Include(c => c.ProductItem.Tax);
             Product product = db.Products.Include(p => p.Author).Include(p => p.Category).Include(p => p.Tax).SingleOrDefault(t => t.ProductId == id);
 
+
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
             ////For combobox
             var list = new List<SelectListItem>();
             for (var i = 1; i <= product.QuantityAvailable; i++)
                 list.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
             ViewBag.list = list;
 
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
             return View(product);
         }
 
