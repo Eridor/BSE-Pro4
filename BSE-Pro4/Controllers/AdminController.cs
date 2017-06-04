@@ -67,6 +67,11 @@ namespace BSE_Pro4.Controllers
         }
         public ActionResult UserEdit(string id)
         {
+            return RedirectToAction("Index");
+        }
+        /*
+        public ActionResult UserEdit(string id)
+        {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -93,7 +98,7 @@ namespace BSE_Pro4.Controllers
                 _db.SaveChanges();
             }
             return RedirectToAction("UserEdit");
-        }
+        }*/
 
         public ActionResult UserDelete(string id)
         {

@@ -53,7 +53,26 @@ namespace BSE_Pro4.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProductId,CategoryId,AuthorId,Name,Desc,Format,Pages,QuantityAvailable,Cost,TaxId,Discount")] Product product)
         {
-            if (ModelState.IsValid)
+
+            if(product.Format.Length > 100)
+            {
+                ViewBag.Error += "Za długi format książki   ";
+            }
+            double k;
+            if (double.TryParse(product.Pages,out k))
+            {
+                ViewBag.Error += "Nieprawidłowa ilość stron   ";
+            }
+            if (product.Cost < 0)
+            {
+                ViewBag.Error += "Cena nie może być ujemna   ";
+            }
+            if (product.Discount < 0 || product.Discount > 1)
+            {
+                ViewBag.Error += "Rabat musi być z przedziału 0% - 100%";
+            }
+
+            if (ModelState.IsValid && ViewBag.Error == null)
             {
                 db.Products.Add(product);
                 db.SaveChanges();
@@ -91,7 +110,25 @@ namespace BSE_Pro4.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProductId,CategoryId,AuthorId,Name,Desc,Format,Pages,QuantityAvailable,Cost,TaxId,Discount")] Product product)
         {
-            if (ModelState.IsValid)
+            if (product.Format.Length > 100)
+            {
+                ViewBag.Error += "Za długi format książki   ";
+            }
+            double k;
+            if (double.TryParse(product.Pages, out k))
+            {
+                ViewBag.Error += "Nieprawidłowa ilość stron   ";
+            }
+            if (product.Cost < 0)
+            {
+                ViewBag.Error += "Cena nie może być ujemna   ";
+            }
+            if (product.Discount < 0 || product.Discount > 1)
+            {
+                ViewBag.Error += "Rabat musi być z przedziału 0% - 100%";
+            }
+
+            if (ModelState.IsValid && ViewBag.Error == null)
             {
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();

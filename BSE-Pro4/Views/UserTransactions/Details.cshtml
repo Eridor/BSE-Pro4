@@ -43,18 +43,18 @@
                 <td>
                     @if (item.Discount != 0)
                     {
-                        <s>@item.Cost.ToString("C2")</s> <span class="badge">-@item.Discount.ToString("p0")</span>
+                        <s>@item.Cost.ToString("F2") zł</s> <span class="badge">-@item.Discount.ToString("p0")</span>
                     }
                     else
                     {
-                        @item.Cost.ToString("C2")
+                        @item.Cost.ToString("F2") zł
                     }
 
                 </td>
                 <td>
                     @if (item.Discount != 0)
                     {
-                        @((item.Cost * (1 - item.Discount)).ToString("C2"))
+                        @((item.Cost * (1 - item.Discount)).ToString("F2") zł)
 
                     }
                 </td>
@@ -62,7 +62,7 @@
                     <span class="badge">@item.Tax.ToString("p0")</span>
                 </td>
                 <td>
-                    @((item.Count * item.Cost * (1 - item.Discount) * (1 + item.Tax)).ToString("C2"))
+                    @((item.Count * item.Cost * (1 - item.Discount) * (1 + item.Tax)).ToString("F2") zł)
                 </td>
             </tr>
         }
@@ -83,7 +83,7 @@
                 Suma
             </th>
             <th>
-                @Model.TotalCost.ToString("C2")
+                @Model.TotalCost.ToString("F2") zł
             </th>
         </tr>
     </table>
@@ -126,7 +126,7 @@
         </dt>
 
         <dd>
-            @(Model.TotalCost.ToString("C2"))
+            @(Model.TotalCost.ToString("F2") zł)
         </dd>
 
     </dl>

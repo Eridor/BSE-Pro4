@@ -55,17 +55,17 @@
             <td>
                 @if (item.ProductItem.Discount != 0)
                 {
-                    <s>@item.ProductItem.Cost.ToString("C2")</s> <span class="badge">-@item.ProductItem.Discount.ToString("p0")</span>
+                    <s>@item.ProductItem.Cost.ToString("F2") zł</s> <span class="badge">-@item.ProductItem.Discount.ToString("p0")</span>
                 }
                 else
                 {
-                    @item.ProductItem.Cost.ToString("C2")
+                    @item.ProductItem.Cost.ToString("F2") zł
                 }
             </td>
             <td>
                 @if (item.ProductItem.Discount != 0)
                 {
-                    @((item.ProductItem.Cost * (1-item.ProductItem.Discount)).ToString("C2"))
+                    @((item.ProductItem.Cost * (1-item.ProductItem.Discount)).ToString("F2") zł)
 
                 }
             </td>
@@ -73,7 +73,7 @@
                 @item.ProductItem.Tax.Value.ToString("p0")
             </td>
             <td>
-                @((item.Quantity * item.ProductItem.Cost * (1- item.ProductItem.Discount) * (1 + item.ProductItem.Tax.Value)).ToString("C2"))
+                @((item.Quantity * item.ProductItem.Cost * (1- item.ProductItem.Discount) * (1 + item.ProductItem.Tax.Value)).ToString("F2") zł)
             </td>
             <td> 
                 @Html.ActionLink("Usuń z koszyka", "Delete", new { id = item.CartId }, new { @class = "fullWidth btn btn-danger" })
@@ -94,7 +94,7 @@
             Suma
         </th>
         <th>
-            @ViewBag.CartSum.ToString("C2")
+            @ViewBag.CartSum.ToString("F2") zł
         </th>
         <th></th>
     </tr>

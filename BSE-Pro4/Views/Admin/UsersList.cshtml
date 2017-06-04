@@ -20,7 +20,7 @@
                 <td>@item.UserName</td>
                 <td>@item.Email</td>
                 <td>
-                    @Html.ActionLink("Edit", "UserEdit", new { id = item.Id }, new { @class = "btn btn-primary" }) @Html.ActionLink("Delete", "UserDelete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Delete", "UserDelete", new { id = item.Id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
         }
